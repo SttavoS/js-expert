@@ -27,10 +27,10 @@ const mocks = {
 
   stub
     .withArgs(BASE_URL_PLANET_1)
-    .resolves(tatooine)
+    .resolves(mocks.tatooine)
   stub
     .withArgs(BASE_URL_PLANET_2)
-    .resolves(alderaan)
+    .resolves(mocks.alderaan)
 
   {
     const expected = {
