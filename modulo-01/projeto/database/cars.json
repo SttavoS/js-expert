@@ -1,0 +1,23 @@
+[
+  {
+    "id": "ca222ebe-6ca8-4414-8e23-8c5da3a67769",
+    "name": "Escalade",
+    "releaseYear": 2024,
+    "available": true,
+    "gasAvailable": true
+  },
+  {
+    "id": "50709be7-8c4f-4aad-8794-d2c09a2dc554",
+    "name": "Element",
+    "releaseYear": 2024,
+    "available": true,
+    "gasAvailable": true
+  },
+  {
+    "id": "821abfd0-dfa8-4557-9932-0cb91a7c8cf2",
+    "name": "Camaro",
+    "releaseYear": 2024,
+    "available": true,
+    "gasAvailable": true
+  }
+]

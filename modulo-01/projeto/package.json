@@ -1,0 +1,19 @@
+{
+  "name": "projeto-tdd",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "The User Story is in[story.md](./test/useCases/story.md)",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "seed": "node ./seed"
+  },
+  "author": "SttavoS",
+  "license": "ISC",
+  "devDependencies": {
+    "faker": "5.1.0"
+  }
+}
