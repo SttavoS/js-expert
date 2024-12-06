@@ -8,12 +8,22 @@
     "test": "test"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "npx mocha",
+    "test:dev": "npx mocha -w",
+    "test:coverage": "npx nyc npx mocha",
     "seed": "node ./seed"
   },
   "author": "SttavoS",
   "license": "ISC",
   "devDependencies": {
-    "faker": "5.1.0"
+    "chai": "^4.5.0",
+    "faker": "5.1.0",
+    "mocha": "^8.4.0",
+    "nyc": "^15.1.0",
+    "sinon": "^9.2.4"
+  },
+  "mocha": {
+    "spec": "./test/**/*.test.js",
+    "parallel": true
   }
 }
