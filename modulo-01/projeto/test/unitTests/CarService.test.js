@@ -8,6 +8,7 @@ import CarService from "../../src/services/CarService.js";
 import validCarCategoryMock from "../mocks/valid-carCategory.json" with { type: "json" };
 import validCarMock from "../mocks/valid-car.json" with { type: "json" };
 import validCustomer from "../mocks/valid-customer.json" with { type: "json" };
+import { X509Certificate } from "node:crypto";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -75,6 +76,29 @@ describe("CarService Suite Tests", () => {
 
     expect(carService.chooseRandomCar.calledOnce).to.be.ok;
     expect(carService.carRepository.find.name).to.be.ok;
+    expect(result).to.be.deep.equal(expected);
+  });
+
+  it("given a carCategory, customer and numberOfDays it should calculate final amout ion real", () => {
+    const customer = Object.create(mocks.validCustomer);
+    customer.age = 50;
+
+    const carCategory = Object.create(mocks.validCarCategory);
+    carCategory.price = 37.6;
+
+    const numberOfDays = 5;
+
+    sandbox
+      .stub(carService, "taxesBasedOnAge")
+      .get(() => [{ from: 40, to: 50, then: 1.3 }]);
+
+    const expected = carService.currencyFormat.format(244.4);
+    const result = carService.calculateFinalPrice(
+      customer,
+      carCategory,
+      numberOfDays,
+    );
+
     expect(result).to.be.deep.equal(expected);
   });
 });
