@@ -5,10 +5,10 @@ import path, { join } from "node:path";
 import { fileURLToPath } from "url";
 
 import CarService from "../../src/services/CarService.js";
+import Transaction from "../../src/entities/Transaction.js";
 import validCarCategoryMock from "../mocks/valid-carCategory.json" with { type: "json" };
 import validCarMock from "../mocks/valid-car.json" with { type: "json" };
 import validCustomer from "../mocks/valid-customer.json" with { type: "json" };
-import { X509Certificate } from "node:crypto";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -98,6 +98,36 @@ describe("CarService Suite Tests", () => {
       carCategory,
       numberOfDays,
     );
+
+    expect(result).to.be.deep.equal(expected);
+  });
+
+  it("given a customer and a car category it should return a transaction receipt", async () => {
+    const car = mocks.validCar;
+    const carCategory = {
+      ...mocks.validCarCategory,
+      price: 37.6,
+      carIds: [car.id],
+    };
+    const customer = { ...mocks.validCustomer, age: 20 };
+    const numberOfDays = 5;
+    const dueDate = "15 de dezembro de 2024";
+
+    const now = new Date(2024, 11, 10);
+    sandbox.useFakeTimers(now.getTime());
+    sandbox
+      .stub(carService.carRepository, carService.carRepository.find.name)
+      .resolves(car);
+    // age: 20, tax: 1.1, categoryPrice: 37.6
+    // 37.6 * 1.1 = 41.365 * 5 days = 206.8
+    const expectedAmount = carService.currencyFormat.format(206.8);
+    const result = await carService.rent(customer, carCategory, numberOfDays);
+    const expected = new Transaction({
+      customer,
+      car,
+      dueDate,
+      amount: expectedAmount,
+    });
 
     expect(result).to.be.deep.equal(expected);
   });

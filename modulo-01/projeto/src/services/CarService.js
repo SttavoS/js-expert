@@ -1,5 +1,6 @@
 import BaseRepository from "../repositories/base/Repository.js";
 import Tax from "../entities/Tax.js";
+import Transaction from "../entities/Transaction.js";
 
 class CarService {
   constructor({ cars }) {
@@ -44,6 +45,29 @@ class CarService {
     const finalPrice = price * tax * numberOfDays;
 
     return this.currencyFormat.format(finalPrice);
+  }
+
+  async rent(customer, carCategory, nummberOfDays) {
+    const car = await this.getAvailableCar(carCategory);
+    const finalPrice = this.calculateFinalPrice(
+      customer,
+      carCategory,
+      nummberOfDays,
+    );
+
+    const today = new Date();
+    today.setDate(today.getDate() + nummberOfDays);
+    const options = { year: "numeric", month: "long", day: "numeric" };
+    const dueDate = today.toLocaleDateString("pt-br", options);
+
+    const transaction = new Transaction({
+      customer,
+      dueDate,
+      car,
+      amount: finalPrice,
+    });
+
+    return transaction;
   }
 }
 
