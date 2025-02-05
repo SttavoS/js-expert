@@ -1,0 +1,32 @@
+{
+  "name": "app",
+  "version": "1.0.0",
+  "description": "",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "main": "src/index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/index.js",
+    "test": "mocha",
+    "test:dev": "mocha -w",
+    "test:cov": "nyc mocha"
+  },
+  "engines": {
+    "node": "22"
+  },
+  "dependencies": {
+    "pdf.js-extract": "^0.2.1",
+    "safe-regex": "^2.1.1"
+  },
+  "devDependencies": {
+    "chai": "^5.1.2",
+    "mocha": "^11.1.0",
+    "nyc": "^17.1.0"
+  },
+  "mocha": {
+    "spec": "./test/**/*.test.js",
+    "parallel": true
+  }
+}
