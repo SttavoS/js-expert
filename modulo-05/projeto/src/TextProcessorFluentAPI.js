@@ -1,3 +1,4 @@
+import Person from "./Person.js";
 import { evaluateRegex } from "./utils/regex.js";
 
 export default class TextProcessorFluentAPI {
@@ -34,6 +35,8 @@ export default class TextProcessorFluentAPI {
     const onlyPerson = this.#content.match(matchPerson);
     this.#content = onlyPerson;
 
+    console.log(this.#content);
+
     return this;
   }
 
@@ -50,6 +53,11 @@ export default class TextProcessorFluentAPI {
       line.map((item) => item.replace(trimSpaces, "")),
     );
 
+    return this;
+  }
+
+  mapPerson() {
+    this.#content = this.#content.map((line) => new Person(line));
     return this;
   }
 
